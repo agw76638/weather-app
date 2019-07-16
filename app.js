@@ -1,4 +1,6 @@
+const geo = document.querySelector(".geo");
 const weather = document.querySelector(".weather");
+const details = document.querySelector(".details");
 const API_KEY = "2b8bb66d654f93c0cbd587f06c5b6a04";
 const COORDS = "coords";
 
@@ -12,8 +14,15 @@ function getWeather(lat, lng) {
             const temperature = json.main.temp;
             const place = json.name;
             const country = json.sys.country;
-            const description = json.weather.description;
-            weather.innerText = `${temperature}°C @ ${place} ${country} ${description}`
+            const icon = json.weather[0].icon;
+            const humidity = json.main.humidity
+            const wind = json.wind.speed
+            const image = new Image();
+            image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`
+            geo.innerText = `${place}, ${country}`;
+            weather.innerText = `${temperature}°C`;
+            weather.prepend(image);
+            details.innerText = `💧${humidity}% 💨${wind}m/s`
         });
 }
 
