@@ -1,6 +1,7 @@
 const geo = document.querySelector(".geo");
 const weather = document.querySelector(".weather");
 const details = document.querySelector(".details");
+const forecast = document.querySelector(".forecast")
 const API_KEY = "2b8bb66d654f93c0cbd587f06c5b6a04";
 const COORDS = "coords";
 
@@ -10,7 +11,6 @@ function getWeather(lat, lng) {
         return response.json();
     })
         .then(function (json) {
-            console.log(json)
             const temperature = json.main.temp;
             const place = json.name;
             const country = json.sys.country;
@@ -32,8 +32,12 @@ function getWeatherForecast(lat, lng) {
         return response.json();
     })
         .then(function (json) {
-            console.log(json)
+            console.log(json);
         });
+}
+
+function getWeatherMap() {
+
 }
 
 function saveCoords(coordsObj) {
