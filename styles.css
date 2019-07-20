@@ -1,0 +1,10 @@
+body{
+    background: linear-gradient(#81ecec, #74b9ff);
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.weather{
+    font-size: 24px;
+}

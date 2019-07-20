@@ -5,8 +5,8 @@ const forecast = document.querySelector(".forecast")
 const API_KEY = "2b8bb66d654f93c0cbd587f06c5b6a04";
 const COORDS = "coords";
 
-function getWeather(lat, lng) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`
+function getWeather(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     ).then(function (response) {
         return response.json();
     })
@@ -17,17 +17,15 @@ function getWeather(lat, lng) {
             const icon = json.weather[0].icon;
             const humidity = json.main.humidity
             const wind = json.wind.speed
-            const image = new Image();
-            image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`
             geo.innerText = `${place}, ${country}`;
-            weather.innerText = `${temperature}°C`;
-            weather.prepend(image);
+            weather.innerHTML =
+                `<img src="http://openweathermap.org/img/wn/${icon}@2x.png"> ${temperature}°C`;
             details.innerText = `💧${humidity}% 💨${wind}m/s`
         });
 }
 
-function getWeatherForecast(lat, lng) {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`
+function getWeatherForecast(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     ).then(function (response) {
         return response.json();
     })
@@ -36,8 +34,8 @@ function getWeatherForecast(lat, lng) {
         });
 }
 
-function getWeatherMap() {
-
+function getWeatherMap(lat, lon) {
+    fetch(`https://tile.openweathermap.org/map/{temp_new}/{z}/{lat}/{lon}.png?appid={API_KEY}`)
 }
 
 function saveCoords(coordsObj) {
@@ -45,6 +43,7 @@ function saveCoords(coordsObj) {
 }
 
 function handleGeoSocces(position) {
+    console.log(position);
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const coordsObj = {
