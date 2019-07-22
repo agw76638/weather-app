@@ -2,6 +2,7 @@ const geo = document.querySelector(".geo");
 const weather = document.querySelector(".weather");
 const details = document.querySelector(".details");
 const forecast = document.querySelector(".forecast")
+const map = document.querySelector(".map");
 const API_KEY = "2b8bb66d654f93c0cbd587f06c5b6a04";
 const COORDS = "coords";
 
@@ -35,7 +36,10 @@ function getWeatherForecast(lat, lon) {
 }
 
 function getWeatherMap(lat, lon) {
-    fetch(`https://tile.openweathermap.org/map/{temp_new}/{z}/{lat}/{lon}.png?appid={API_KEY}`)
+    fetch(`https://tile.openweathermap.org/map/{temp_new}/{6}/${lat}/${lon}.png?appid={API_KEY}`
+    ).then(
+        map.innerHTML = `<img src="https://tile.openweathermap.org/map/{temp_new}/{6}/${lat}/${lon}.png?appid={API_KEY}">`
+    )
 }
 
 function saveCoords(coordsObj) {
@@ -53,6 +57,7 @@ function handleGeoSocces(position) {
     saveCoords(coordsObj);
     getWeather(latitude, longitude);
     getWeatherForecast(latitude, longitude);
+    getWeatherMap(latitude, longitude);
 }
 
 function handleGeoError() {
